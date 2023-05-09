@@ -30,4 +30,4 @@ jobs:
       #         fi
       #     done
       - name: Script
-        run: script.sh
+        run: ./script.sh
