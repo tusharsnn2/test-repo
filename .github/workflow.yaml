@@ -1,0 +1,33 @@
+name: Bot
+permissions: 
+  pull-requests: write
+  contents: write
+  statuses: write
+on:
+  pull_request:
+    types:
+      - opened
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        MAIN_BRANCH_NAME: 'main'
+        BASE_PR_REF: ${{ github.base_ref }}
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+      
+      - name: List Envs
+        run: env
+      # - run: |
+      #     for base_pr_id in $(gh pr list --search "head:${{ env.BASE_PR_REF }}" --json number --jq '.[].number'); do 
+      #         if [ ${{ env.MAIN_BRANCH_NAME }} == $( gh pr view $base_pr_id --json baseRefName  --jq '.baseRefName') ]; then
+      #             gh pr ready $base_pr_id --undo // <-- This won't work
+      #         fi
+      #     done
+      - name: Script
+        run: script.sh
