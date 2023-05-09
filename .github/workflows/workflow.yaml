@@ -23,11 +23,6 @@ jobs:
       
       - name: List Envs
         run: env
-      # - run: |
-      #     for base_pr_id in $(gh pr list --search "head:${{ env.BASE_PR_REF }}" --json number --jq '.[].number'); do 
-      #         if [ ${{ env.MAIN_BRANCH_NAME }} == $( gh pr view $base_pr_id --json baseRefName  --jq '.baseRefName') ]; then
-      #             gh pr ready $base_pr_id --undo // <-- This won't work
-      #         fi
-      #     done
+        
       - name: Script
         run: ./script.sh
